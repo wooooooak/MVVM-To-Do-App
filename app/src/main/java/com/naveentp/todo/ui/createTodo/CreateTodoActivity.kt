@@ -10,10 +10,7 @@ import com.naveentp.todo.data.db.TodoRecord
 import com.naveentp.todo.utils.Constants
 import kotlinx.android.synthetic.main.activity_create_todo.*
 
-/**
- * @author Naveen T P
- * @since 08/11/18
- */
+
 class CreateTodoActivity : AppCompatActivity() {
 
     var todoRecord: TodoRecord? = null
@@ -22,7 +19,7 @@ class CreateTodoActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_todo)
 
-        //Prepopulate existing title and content from intent
+        // Prepopulate existing title and content from intent
         val intent = intent
         if (intent != null && intent.hasExtra(Constants.INTENT_OBJECT)) {
             val todoRecord: TodoRecord = intent.getParcelableExtra(Constants.INTENT_OBJECT)
@@ -55,6 +52,7 @@ class CreateTodoActivity : AppCompatActivity() {
 
     /**
      * Sends the updated information back to calling Activity
+     * 세이브를 눌렀으니 원래 화면(list view, calling Activity)으로 넘어가자.
      * */
     private fun saveTodo() {
         if (validateFields()) {
@@ -62,7 +60,7 @@ class CreateTodoActivity : AppCompatActivity() {
             val todo = TodoRecord(id = id, title = et_todo_title.text.toString(), content = et_todo_content.text.toString())
             val intent = Intent()
             intent.putExtra(Constants.INTENT_OBJECT, todo)
-            setResult(RESULT_OK, intent)
+            setResult(RESULT_OK, intent) // setResult로 자신을 부른 액티비티에 응답한다.
             finish()
         }
     }
